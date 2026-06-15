@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Welcome Hub: Your Pre-Onboarding Portal</title>
+<meta name="description" content="Everything you need before your first day. Watch your welcome video, track your checklist, and get ready to start strong." />
+
+<!-- ============================================================
+     QUICK EDITS (change these and you're done):
+     1. COMPANY_NAME below in the <script> config
+     2. Canva video: set sharing to "Anyone with the link can view"
+        (or set USE_SELF_HOSTED_VIDEO = true and add welcome.mp4 + welcome-en.vtt for built-in subtitles)
+     3. Contact email / name at the bottom
+     ============================================================ -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --blue:#1668ff;          /* primary brand blue */
+    --blue-700:#0a4fd6;      /* hover / pressed     */
+    --blue-600:#1257e6;
+    --blue-50:#eaf1ff;       /* light blue tint     */
+    --blue-100:#dbe6ff;
+    --periwinkle:#9aa0cf;    /* dashboard stat bar  */
+    --periwinkle-soft:#c7cbe6;
+    --ink:#1b2541;           /* dark navy text      */
+    --muted:#6b7488;         /* secondary text      */
+    --bg:#ffffff;            /* page background     */
+    --bg-alt:#ffffff;        /* alt panel           */
+    --card:#ffffff;
+    --coral:#f0533d;
+    --yellow:#ffc62e;
+    --line:#e4e9f2;
+    --line-strong:#cdd6e8;
+    --display:"Lexend",sans-serif;
+    --body:"Inter",sans-serif;
+    --shadow:0 1px 2px rgba(27,37,65,.05), 0 10px 26px -14px rgba(27,37,65,.22);
+    --shadow-lift:0 1px 2px rgba(27,37,65,.06), 0 26px 50px -22px rgba(22,104,255,.36);
+    --r:18px;
+  }
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+
+  body{
+    font-family:var(--body);
+    color:var(--ink);
+    background:var(--bg);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  h1,h2,h3,h4{font-family:var(--display);line-height:1.12;letter-spacing:-.01em;font-weight:600}
+
+  a{color:inherit;text-decoration:none}
+  img{max-width:100%;display:block}
+
+  .wrap{width:100%;max-width:1180px;margin:0 auto;padding:0 24px}
+
+  .eyebrow{
+    font-family:var(--body);
+    font-size:.74rem;
+    font-weight:700;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--blue);
+    display:inline-flex;align-items:center;gap:.55em;
+  }
+  .eyebrow::before{
+    content:"";width:18px;height:18px;border-radius:6px;flex:0 0 auto;
+    background:var(--blue-50);
+    background-image:radial-gradient(circle at 50% 50%, var(--blue) 30%, transparent 32%);
+  }
+
+  /* favourite star tucked top-right of a section head, an Appical nod */
+  .star{margin-left:auto;color:var(--line-strong);flex:0 0 auto}
+
+  /* ---------- focus ---------- */
+  a:focus-visible,button:focus-visible,summary:focus-visible,input:focus-visible{
+    outline:3px solid var(--blue);outline-offset:3px;border-radius:8px;
+  }
+
+  /* ============ APP BAR ============ */
+  header.appbar{
+    position:sticky;top:0;z-index:60;
+    background:var(--blue);
+    color:#fff;
+    box-shadow:0 1px 0 rgba(0,0,0,.06), 0 8px 24px -18px rgba(22,104,255,.9);
+  }
+  .appbar-inner{display:flex;align-items:center;gap:18px;height:66px}
+  .brand{display:flex;align-items:center;gap:11px;flex:0 0 auto}
+  .brand .mark{
+    width:38px;height:38px;border-radius:11px;background:#fff;
+    display:grid;place-items:center;flex:0 0 auto;
+    box-shadow:0 4px 12px -4px rgba(0,0,0,.35);
+  }
+  .brand .word{display:flex;flex-direction:column;line-height:1.05}
+  .brand .word b{font-family:var(--display);font-weight:700;font-size:1.06rem;color:#fff;letter-spacing:-.01em}
+  .brand .word span{font-size:.68rem;font-weight:500;color:rgba(255,255,255,.78);letter-spacing:.02em}
+
+  .nav-links{display:flex;align-items:center;gap:6px;margin-left:auto}
+  .nav-links a{
+    display:inline-flex;align-items:center;gap:8px;
+    font-size:.9rem;font-weight:500;color:rgba(255,255,255,.86);
+    padding:9px 13px;border-radius:10px;transition:background .18s,color .18s;
+  }
+  .nav-links a svg{opacity:.9}
+  .nav-links a:hover{background:rgba(255,255,255,.14);color:#fff}
+  .nav-links a.active{color:#fff}
+  .nav-links a.active::after{
+    content:"";position:absolute;
+  }
+
+  .appbar-tools{margin-left:auto;display:flex;align-items:center;gap:8px;flex:0 0 auto}
+  .tool-btn{
+    width:40px;height:40px;border-radius:11px;border:none;cursor:pointer;
+    background:rgba(255,255,255,.14);color:#fff;display:grid;place-items:center;
+    position:relative;transition:background .18s;
+  }
+  .tool-btn:hover{background:rgba(255,255,255,.24)}
+  .tool-btn .ping{position:absolute;top:9px;right:9px;width:8px;height:8px;border-radius:50%;background:var(--coral);box-shadow:0 0 0 2px var(--blue)}
+  .who{
+    display:flex;align-items:center;gap:9px;padding:5px 12px 5px 6px;border-radius:999px;
+    background:rgba(255,255,255,.14);color:#fff;font-weight:600;font-size:.88rem;cursor:default;
+  }
+  .who .ava{width:30px;height:30px;border-radius:50%;background:var(--yellow);display:grid;place-items:center;color:#5a4500;font-weight:700;font-size:.78rem;flex:0 0 auto}
+  .who svg{opacity:.8}
+
+  .nav-toggle{display:none;background:rgba(255,255,255,.14);border:none;border-radius:11px;width:42px;height:42px;cursor:pointer}
+  .nav-toggle span{display:block;width:18px;height:2px;background:#fff;margin:3px auto;border-radius:2px}
+
+  @media(max-width:1000px){
+    .who .meta,.tool-btn.search{display:none}
+  }
+  @media(max-width:880px){
+    .nav-links{
+      position:absolute;top:66px;left:0;right:0;margin:0;
+      flex-direction:column;align-items:stretch;gap:0;
+      background:var(--blue-600);
+      max-height:0;overflow:hidden;transition:max-height .3s ease;
+    }
+    .nav-links.open{max-height:460px}
+    .nav-links a{padding:15px 24px;border-top:1px solid rgba(255,255,255,.12);border-radius:0}
+    .nav-toggle{display:block}
+    .appbar-tools{gap:6px}
+  }
+
+  /* ============ HERO / DASHBOARD ============ */
+  .hero{position:relative;padding:56px 0 64px;overflow:hidden}
+  .hero::before{
+    content:"";position:absolute;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(900px 460px at 92% -12%, rgba(22,104,255,.10), transparent 60%),
+      radial-gradient(760px 520px at -8% 8%, rgba(240,83,61,.07), transparent 58%);
+  }
+  /* ---- animated moving-squares background (original, brand-blue) ---- */
+  .hero-bg{position:absolute;inset:0;z-index:0;overflow:hidden;pointer-events:none}
+  .hero-bg .sq{
+    position:absolute;border-radius:13px;background:var(--blue);opacity:.10;
+    animation:floatSq ease-in-out infinite;will-change:transform;
+  }
+  .hero-bg .sq.o{background:var(--coral);opacity:.085}
+  .hero-bg .sq.y{background:var(--yellow);opacity:.12}
+  .hero-bg .sq.ring{background:transparent;border:2px solid var(--blue);opacity:.13}
+  @keyframes floatSq{
+    0%{transform:translate3d(0,0,0) rotate(0deg)}
+    50%{transform:translate3d(0,-32px,0) rotate(26deg)}
+    100%{transform:translate3d(0,0,0) rotate(0deg)}
+  }
+  @media(prefers-reduced-motion:reduce){.hero-bg .sq{animation:none}}
+
+  .hero-grid{position:relative;z-index:1;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center}
+  @media(max-width:940px){.hero-grid{grid-template-columns:1fr;gap:38px}}
+
+  .hero h1{font-size:clamp(2.3rem,5.2vw,3.5rem);font-weight:700;margin-top:16px;letter-spacing:-.02em}
+  .hero h1 .hl{color:var(--blue)}
+  .hero p.lead{font-size:1.1rem;color:var(--muted);max-width:34ch;margin-top:16px}
+
+  .hero-actions{margin-top:28px;display:flex;flex-wrap:wrap;gap:13px}
+  .btn{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:13px 24px;border-radius:999px;font-weight:600;font-size:.98rem;
+    font-family:var(--body);
+    transition:transform .18s, box-shadow .18s, background .18s, border-color .18s;cursor:pointer;border:none;
+  }
+  .btn-primary{background:var(--blue);color:#fff;box-shadow:0 10px 22px -10px rgba(22,104,255,.7)}
+  .btn-primary:hover{transform:translateY(-2px);background:var(--blue-700);box-shadow:var(--shadow-lift)}
+  .btn-ghost{background:#fff;color:var(--blue);border:1.5px solid var(--line-strong)}
+  .btn-ghost:hover{border-color:var(--blue);transform:translateY(-2px)}
+
+  .access-row{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+  .chip{
+    display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid var(--line);
+    padding:9px 15px;border-radius:999px;font-size:.84rem;font-weight:600;color:var(--ink);box-shadow:var(--shadow)
+  }
+  .chip svg{flex:0 0 auto;color:var(--blue)}
+
+  /* video card */
+  .panel{
+    position:relative;background:var(--card);border-radius:20px;
+    box-shadow:var(--shadow-lift);border:1px solid var(--line);overflow:hidden;
+  }
+  .panel-head{display:flex;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
+  .panel-head .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+  .panel-head .dot.y{background:var(--yellow)}
+  .panel-head .dot.g{background:#27c093}
+  .panel-head .t{margin-left:6px;font-family:var(--display);font-weight:600;font-size:.96rem}
+  .panel-head .star{margin-left:auto}
+  .video-frame{position:relative;width:100%;padding-top:64%;background:#0c2350}
+  .video-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .panel-foot{display:flex;align-items:center;justify-content:space-between;padding:14px 18px;gap:12px}
+  .panel-foot .meta{font-size:.84rem;color:var(--muted)}
+  .panel-foot .meta b{color:var(--ink);font-weight:600}
+
+  /* signature: blue coach-mark speech bubble */
+  .coach{
+    position:relative;background:var(--blue);color:#fff;border-radius:16px;
+    padding:18px 20px 16px;box-shadow:0 22px 44px -20px rgba(22,104,255,.8);
+    max-width:340px;
+  }
+  .coach::after{
+    content:"";position:absolute;width:18px;height:18px;background:var(--blue);
+    transform:rotate(45deg);
+  }
+  .coach.up::after{top:-7px;left:34px}
+  .coach h4{color:#fff;font-size:1rem;margin-bottom:6px}
+  .coach p{color:rgba(255,255,255,.9);font-size:.92rem;line-height:1.5}
+  .coach .coach-foot{display:flex;align-items:center;justify-content:space-between;margin-top:14px}
+  .coach .step{font-size:.82rem;font-weight:600;color:rgba(255,255,255,.72);display:flex;align-items:center;gap:8px}
+  .coach .mini{
+    background:#fff;color:var(--blue);border:none;border-radius:9px;
+    padding:8px 16px;font-weight:600;font-size:.84rem;cursor:pointer;font-family:var(--body);
+    transition:transform .15s;
+  }
+  .coach .mini:hover{transform:translateY(-1px)}
+
+  /* coach as a full clickable card */
+  a.coach{display:block;cursor:pointer;transition:transform .18s, box-shadow .18s}
+  a.coach:hover{transform:translateY(-3px);box-shadow:0 28px 52px -22px rgba(22,104,255,.9)}
+  a.coach .mini{display:inline-flex;align-items:center;gap:6px}
+
+  .hero-coach{margin-top:18px;margin-left:24px;position:relative;z-index:3}
+  @media(max-width:940px){.hero-coach{margin-left:0}}
+
+  /* ---- clickable video poster ---- */
+  .video-poster{
+    position:relative;width:100%;display:flex;flex-direction:column;gap:0;text-align:left;
+    background:linear-gradient(150deg,#1f6dff,#0b46c9);border:none;border-radius:20px;overflow:hidden;
+    padding:16px 18px;cursor:pointer;color:#fff;min-height:330px;
+    box-shadow:var(--shadow-lift);transition:transform .2s, box-shadow .2s;font-family:var(--body);
+  }
+  .video-poster:hover{transform:translateY(-3px);box-shadow:0 32px 58px -24px rgba(22,104,255,.95)}
+  .video-poster .vp-glow{position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(420px 220px at 78% 8%, rgba(255,255,255,.18), transparent 60%),
+               radial-gradient(360px 240px at 12% 100%, rgba(255,198,46,.22), transparent 60%);}
+  .vp-row{position:relative;display:flex;align-items:center;gap:7px}
+  .vp-row .dot{width:9px;height:9px;border-radius:50%}
+  .vp-row .dot{background:#ff7a66}.vp-row .dot.y{background:var(--yellow)}.vp-row .dot.g{background:#5fe3b0}
+  .vp-tag{margin-left:8px;font-weight:600;font-size:.92rem;color:rgba(255,255,255,.92)}
+  .vp-center{position:relative;flex:1;display:grid;place-items:center;padding:18px 0}
+  .vp-play{width:74px;height:74px;border-radius:50%;background:#fff;display:grid;place-items:center;
+    box-shadow:0 14px 30px -10px rgba(0,0,0,.4);transition:transform .2s}
+  .vp-play svg{margin-left:4px}
+  .video-poster:hover .vp-play{transform:scale(1.07)}
+  .vp-foot{position:relative;display:flex;flex-direction:column;gap:2px}
+  .vp-title{font-family:var(--display);font-weight:600;font-size:1.12rem}
+  .vp-sub{font-size:.86rem;color:rgba(255,255,255,.8)}
+
+  /* ---- video popup modal ---- */
+  .modal{position:fixed;inset:0;z-index:100;display:none;align-items:center;justify-content:center;padding:22px}
+  .modal.open{display:flex}
+  .modal-backdrop{position:absolute;inset:0;background:rgba(11,30,66,.62);backdrop-filter:blur(4px);animation:fadeIn .2s ease}
+  .modal-card{position:relative;width:100%;max-width:920px;background:#fff;border-radius:20px;overflow:hidden;
+    box-shadow:0 40px 90px -30px rgba(0,0,0,.6);animation:popIn .24s cubic-bezier(.2,.8,.25,1)}
+  @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+  @keyframes popIn{from{opacity:0;transform:translateY(16px) scale(.97)}to{opacity:1;transform:none}}
+  @media(prefers-reduced-motion:reduce){.modal-backdrop,.modal-card{animation:none}}
+  .modal-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .modal-title{display:flex;align-items:center;gap:7px;font-family:var(--display);font-weight:600;font-size:.98rem}
+  .modal-title .dot{width:9px;height:9px;border-radius:50%;background:var(--coral)}
+  .modal-title .dot.y{background:var(--yellow)}.modal-title .dot.g{background:#27c093}
+  .modal-title .dot+.dot{margin-left:-2px}
+  .modal-tools{display:flex;align-items:center;gap:8px}
+  .cc-btn{display:inline-flex;align-items:center;gap:6px;background:var(--blue-50);color:var(--blue);
+    border:1px solid var(--blue-100);border-radius:10px;padding:7px 12px;font-weight:700;font-size:.82rem;cursor:pointer;font-family:var(--body);transition:.15s}
+  .cc-btn:hover{background:var(--blue-100)}
+  .cc-btn.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .modal-close{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:#fff;color:var(--ink);display:grid;place-items:center;cursor:pointer;transition:.15s}
+  .modal-close:hover{background:var(--bg-alt);border-color:var(--line-strong)}
+  .modal-video{position:relative;width:100%;aspect-ratio:16/10;background:#08193d}
+  .modal-video iframe,.modal-video video{position:absolute;inset:0;width:100%;height:100%;border:0;background:#08193d}
+  /* caption sizing for self-hosted video */
+  #vNative::cue{background:rgba(8,25,61,.82);color:#fff;font-family:var(--body);line-height:1.35}
+  .modal-video.cap-sm #vNative::cue{font-size:.85rem}
+  .modal-video.cap-md #vNative::cue{font-size:1.05rem}
+  .modal-video.cap-lg #vNative::cue{font-size:1.35rem}
+  /* subtitle settings menu */
+  .cc-menu{position:absolute;top:60px;right:16px;z-index:5;width:280px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;box-shadow:var(--shadow-lift);padding:14px 16px}
+  .cc-menu .cc-head{font-family:var(--display);font-weight:600;font-size:.95rem;margin-bottom:10px}
+  .cc-menu .cc-row{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:8px 0;font-size:.9rem;color:var(--ink)}
+  .cc-menu .cc-row.col{flex-direction:column;align-items:flex-start;gap:8px}
+  .cc-sizes{display:flex;gap:6px;width:100%}
+  .cc-sizes button{flex:1;border:1px solid var(--line-strong);background:#fff;color:var(--muted);border-radius:9px;padding:7px 0;font-size:.82rem;font-weight:600;cursor:pointer;font-family:var(--body);transition:.15s}
+  .cc-sizes button:hover{border-color:var(--blue)}
+  .cc-sizes button.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+  .cc-note{font-size:.85rem;color:var(--muted);line-height:1.5;margin-top:2px}
+  /* iOS-ish toggle */
+  #capToggle{appearance:none;-webkit-appearance:none;width:42px;height:24px;border-radius:999px;background:var(--line-strong);position:relative;cursor:pointer;transition:.2s;flex:0 0 auto}
+  #capToggle:checked{background:var(--blue)}
+  #capToggle::after{content:"";position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.2s}
+  #capToggle:checked::after{left:20px}
+  @media(max-width:560px){.cc-menu{left:16px;right:16px;width:auto}}
+
+  /* ============ section scaffolding ============ */
+  section{position:relative}
+  .band{padding:78px 0}
+  .band.tight{padding:60px 0}
+  .sec-head{max-width:60ch;margin-bottom:40px}
+  .sec-head.row{display:flex;align-items:flex-start;gap:14px;max-width:none}
+  .sec-head h2{font-size:clamp(1.8rem,3.8vw,2.5rem);margin-top:12px;font-weight:700}
+  .sec-head p{color:var(--muted);margin-top:12px;font-size:1.05rem}
+
+  /* reveal */
+  .reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease, transform .65s ease}
+  .reveal.in{opacity:1;transform:none}
+  @media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+
+  /* ============ WHY / value cards ============ */
+  .why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  @media(max-width:820px){.why-grid{grid-template-columns:1fr}}
+  .why-card{
+    background:var(--card);border:1px solid var(--line);
+    border-radius:var(--r);padding:28px 26px;transition:transform .22s, box-shadow .22s, border-color .22s;
+  }
+  .why-card:hover{transform:translateY(-4px);box-shadow:var(--shadow);border-color:var(--blue-100)}
+  .why-card .ic{width:50px;height:50px;border-radius:14px;background:var(--blue-50);display:grid;place-items:center;margin-bottom:18px}
+  .why-card h3{font-size:1.18rem;margin-bottom:8px}
+  .why-card p{color:var(--muted);font-size:.97rem}
+
+  /* ============ JOURNEY (connected nodes) ============ */
+  .journey{background:var(--bg-alt)}
+  .scale{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:14px}
+  .scale::before{
+    content:"";position:absolute;top:31px;left:12%;right:12%;height:3px;border-radius:3px;
+    background:var(--periwinkle-soft);z-index:0;
+  }
+  @media(max-width:820px){
+    .scale{grid-template-columns:1fr;gap:0}
+    .scale::before{left:31px;right:auto;top:32px;bottom:32px;width:3px;height:auto}
+  }
+  .stop{position:relative;z-index:1;text-align:center}
+  @media(max-width:820px){.stop{text-align:left;display:grid;grid-template-columns:64px 1fr;gap:10px;align-items:start;padding:12px 0}}
+  .stop .node{
+    width:64px;height:64px;border-radius:50%;background:#fff;border:3px solid var(--periwinkle-soft);
+    display:grid;place-items:center;margin:0 auto 16px;font-family:var(--display);font-weight:700;color:var(--periwinkle);
+    box-shadow:0 6px 16px -8px rgba(27,37,65,.25);font-size:1.05rem;transition:transform .2s;
+  }
+  .stop:hover .node{transform:translateY(-3px)}
+  @media(max-width:820px){.stop .node{margin:0}}
+  .stop.done .node{background:var(--blue);border-color:var(--blue);color:#fff}
+  .stop.next .node{border-color:var(--blue);color:var(--blue)}
+  .stop h3{font-size:1.1rem;margin-bottom:6px}
+  .stop p{color:var(--muted);font-size:.92rem;padding:0 8px}
+  @media(max-width:820px){.stop p{padding:0}}
+
+  /* ============ CHECKLIST ============ */
+  .check-wrap{display:grid;grid-template-columns:1.55fr 1fr;gap:34px;align-items:start}
+  @media(max-width:900px){.check-wrap{grid-template-columns:1fr}}
+  .check-list{display:flex;flex-direction:column;gap:11px}
+  .check-item{
+    display:flex;align-items:flex-start;gap:15px;background:var(--card);
+    border:1px solid var(--line);border-radius:14px;padding:17px 19px;cursor:pointer;
+    transition:border-color .18s, box-shadow .18s, transform .14s;
+  }
+  .check-item:hover{border-color:var(--blue-100);box-shadow:var(--shadow);transform:translateY(-1px)}
+  .check-item .box{
+    width:26px;height:26px;border-radius:50%;border:2px solid var(--line-strong);
+    flex:0 0 auto;display:grid;place-items:center;margin-top:1px;transition:background .2s, border-color .2s;
+  }
+  .check-item .box svg{opacity:0;transform:scale(.5);transition:.2s}
+  .check-item.checked .box{background:var(--blue);border-color:var(--blue)}
+  .check-item.checked .box svg{opacity:1;transform:none}
+  .check-item .txt h4{font-family:var(--display);font-weight:600;font-size:1.02rem;margin-bottom:3px}
+  .check-item.checked .txt h4{text-decoration:line-through;color:var(--muted)}
+  .check-item .txt p{color:var(--muted);font-size:.9rem}
+
+  .progress-card{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;
+    padding:30px;text-align:center;position:sticky;top:90px;box-shadow:var(--shadow);
+  }
+  .ring{width:152px;height:152px;margin:4px auto 18px;position:relative}
+  .ring svg{transform:rotate(-90deg)}
+  .ring .pct{
+    position:absolute;inset:0;display:grid;place-items:center;
+    font-family:var(--display);font-weight:700;font-size:2rem;color:var(--blue);
+  }
+  .progress-card h3{font-size:1.18rem;margin-bottom:6px}
+  .progress-card p{color:var(--muted);font-size:.92rem}
+  .progress-card .reset{
+    margin-top:18px;background:#fff;border:1.5px solid var(--line-strong);color:var(--muted);
+    padding:9px 18px;border-radius:999px;font-family:var(--body);font-weight:600;font-size:.84rem;cursor:pointer;transition:.18s;
+  }
+  .progress-card .reset:hover{border-color:var(--blue);color:var(--blue)}
+
+  /* ============ DAY ONE ============ */
+  .dayone{background:var(--bg-alt)}
+  .info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+  @media(max-width:820px){.info-grid{grid-template-columns:1fr 1fr}}
+  @media(max-width:560px){.info-grid{grid-template-columns:1fr}}
+  .info-card{background:var(--card);border-radius:var(--r);padding:26px;border:1px solid var(--line);transition:transform .22s, box-shadow .22s}
+  .info-card:hover{transform:translateY(-4px);box-shadow:var(--shadow)}
+  .info-card .ic{width:46px;height:46px;border-radius:13px;background:var(--blue-50);display:grid;place-items:center;margin-bottom:15px}
+  .info-card h3{font-size:1.08rem;margin-bottom:7px}
+  .info-card p{color:var(--muted);font-size:.94rem}
+  .info-card .pill{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--blue);background:var(--blue-50);padding:5px 12px;border-radius:999px;margin-top:13px}
+
+  /* ============ FAQ ============ */
+  .faq-list{max-width:800px;margin:34px auto 0}
+  details.faq{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;overflow:hidden;transition:box-shadow .2s,border-color .2s}
+  details.faq[open]{box-shadow:var(--shadow);border-color:var(--blue-100)}
+  details.faq summary{
+    list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:18px;
+    padding:20px 22px;font-family:var(--display);font-weight:600;font-size:1.06rem;
+  }
+  details.faq summary::-webkit-details-marker{display:none}
+  details.faq .plus{flex:0 0 auto;width:30px;height:30px;border-radius:9px;border:1.5px solid var(--line-strong);display:grid;place-items:center;transition:.22s;position:relative}
+  details.faq .plus::before,details.faq .plus::after{content:"";position:absolute;background:var(--blue);border-radius:2px}
+  details.faq .plus::before{width:13px;height:2px}
+  details.faq .plus::after{width:2px;height:13px;transition:.22s}
+  details.faq[open] .plus{background:var(--blue);border-color:var(--blue)}
+  details.faq[open] .plus::before,details.faq[open] .plus::after{background:#fff}
+  details.faq[open] .plus::after{transform:rotate(90deg);opacity:0}
+  details.faq .ans{padding:0 22px 22px;color:var(--muted);font-size:.99rem;max-width:68ch}
+
+  /* ============ HELP ============ */
+  .help{padding:74px 0}
+  .help-card{
+    background:var(--blue);color:#fff;border-radius:24px;padding:48px;
+    display:grid;grid-template-columns:1.25fr 1fr;gap:40px;align-items:center;
+    position:relative;overflow:hidden;box-shadow:0 30px 60px -28px rgba(22,104,255,.8);
+  }
+  .help-card::before{
+    content:"";position:absolute;width:280px;height:280px;border-radius:50%;
+    background:rgba(255,255,255,.08);top:-90px;right:-60px;
+  }
+  @media(max-width:780px){.help-card{grid-template-columns:1fr;padding:34px;text-align:center}}
+  .help-card .eyebrow{color:#fff}
+  .help-card .eyebrow::before{background:rgba(255,255,255,.25);background-image:radial-gradient(circle at 50% 50%, #fff 30%, transparent 32%)}
+  .help-card h2{color:#fff;font-size:clamp(1.7rem,3.4vw,2.3rem);margin-top:12px}
+  .help-card p{color:rgba(255,255,255,.85);margin-top:12px}
+  .help-contact{display:flex;flex-direction:column;gap:13px;position:relative;z-index:1}
+  @media(max-width:780px){.help-contact{align-items:center}}
+  .help-contact .row{display:flex;align-items:center;gap:13px;font-size:1rem}
+  .help-contact .row .ic{width:42px;height:42px;border-radius:12px;background:rgba(255,255,255,.16);display:grid;place-items:center;flex:0 0 auto}
+  .help-contact a{font-weight:600}
+  .help-contact a:hover{color:var(--yellow)}
+
+  /* ============ FOOTER ============ */
+  footer.foot{background:#fff;border-top:1px solid var(--line);color:var(--muted);padding:30px 0;font-size:.9rem}
+  .foot-inner{display:flex;flex-wrap:wrap;gap:14px;align-items:center;justify-content:space-between}
+  .foot-inner .fbrand{display:flex;align-items:center;gap:10px;color:var(--ink);font-weight:600}
+  .foot-inner .fmark{width:30px;height:30px;border-radius:9px;background:var(--blue);display:grid;place-items:center;flex:0 0 auto}
+</style>
+</head>
+<body>
+
+<!-- ===================== APP BAR ===================== -->
+<header class="appbar">
+  <div class="wrap appbar-inner">
+    <a class="brand" href="#top" aria-label="Home">
+      <span class="mark" aria-hidden="true">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10.5V20h14v-9.5" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 20v-5h4v5" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span class="word">
+        <b>Welcome Hub</b>
+        <span>Your Pre-Onboarding Portal</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" id="navLinks">
+      <a href="#video" class="active" onclick="closeNav()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M3 9h18"/></svg>
+        Overview
+      </a>
+      <a href="#journey" onclick="closeNav()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m15 9-3.5 1.5L10 14l3.5-1.5L15 9Z"/></svg>
+        Journey
+      </a>
+      <a href="#checklist" onclick="closeNav()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg>
+        Checklist
+      </a>
+      <a href="#dayone" onclick="closeNav()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
+        Day 1
+      </a>
+      <a href="#faq" onclick="closeNav()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M9.5 9a2.5 2.5 0 1 1 3.5 2.3c-.8.4-1 .9-1 1.7"/><path d="M12 17h.01"/></svg>
+        FAQ
+      </a>
+    </nav>
+
+    <div class="appbar-tools">
+      <button class="nav-toggle" aria-label="Menu" aria-expanded="false" onclick="toggleNav(this)">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<a id="top"></a>
+
+<!-- ===================== HERO / DASHBOARD ===================== -->
+<section class="hero">
+  <div class="hero-bg" aria-hidden="true">
+    <span class="sq"      style="width:90px;height:90px;left:4%;top:14%;animation-duration:23s"></span>
+    <span class="sq ring" style="width:54px;height:54px;left:13%;top:58%;animation-duration:19s;animation-delay:-4s"></span>
+    <span class="sq o"    style="width:38px;height:38px;left:22%;top:30%;animation-duration:27s;animation-delay:-9s"></span>
+    <span class="sq"      style="width:28px;height:28px;left:31%;top:74%;animation-duration:16s;animation-delay:-2s"></span>
+    <span class="sq y"    style="width:64px;height:64px;left:43%;top:8%;animation-duration:25s;animation-delay:-6s"></span>
+    <span class="sq ring" style="width:42px;height:42px;left:49%;top:66%;animation-duration:21s;animation-delay:-11s"></span>
+    <span class="sq"      style="width:34px;height:34px;left:60%;top:20%;animation-duration:18s;animation-delay:-3s"></span>
+    <span class="sq"      style="width:78px;height:78px;left:71%;top:54%;animation-duration:28s;animation-delay:-7s"></span>
+    <span class="sq o"    style="width:30px;height:30px;left:80%;top:12%;animation-duration:20s;animation-delay:-13s"></span>
+    <span class="sq ring" style="width:60px;height:60px;left:88%;top:38%;animation-duration:24s;animation-delay:-5s"></span>
+    <span class="sq y"    style="width:26px;height:26px;left:93%;top:72%;animation-duration:17s;animation-delay:-10s"></span>
+    <span class="sq"      style="width:46px;height:46px;left:36%;top:46%;animation-duration:30s;animation-delay:-15s"></span>
+  </div>
+  <div class="wrap hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">Welcome aboard 🎈</span>
+      <h1>You're in. Now let's get you <span class="hl">ready.</span></h1>
+      <p class="lead">This is your home base for everything you need before your first day — no stress, no guesswork.</p>
+
+      <div class="hero-actions">
+        <button type="button" class="btn btn-primary" onclick="openVideo()">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="#fff"><path d="M8 5v14l11-7z"/></svg>
+          Watch your welcome video
+        </button>
+        <a href="#checklist" class="btn btn-ghost">See my checklist</a>
+      </div>
+
+      <div class="access-row">
+        <span class="chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="13" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+          Works on your laptop
+        </span>
+        <span class="chip">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+          Works on your phone
+        </span>
+      </div>
+    </div>
+
+    <!-- video poster (opens popup) + coach mark -->
+    <div class="reveal" style="transition-delay:.1s">
+      <button class="video-poster" id="video" onclick="openVideo()" aria-label="Play your welcome video">
+        <span class="vp-glow"></span>
+        <span class="vp-row">
+          <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+          <span class="vp-tag">Your welcome message</span>
+        </span>
+        <span class="vp-center">
+          <span class="vp-play">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="#1668ff"><path d="M8 5v14l11-7z"/></svg>
+          </span>
+        </span>
+        <span class="vp-foot">
+          <span class="vp-title">A short hello from the team</span>
+          <span class="vp-sub">From Recruitment · Tap to play</span>
+        </span>
+      </button>
+
+      <div class="hero-coach">
+        <a class="coach up reveal" href="#journey" style="transition-delay:.18s">
+          <h4>Bring your pre-onboarding to life</h4>
+          <p>Watch the welcome video first, then work down your checklist at your own pace. We've laid out the whole path for you.</p>
+          <span class="coach-foot">
+            <span class="step">Step 1 of 4</span>
+            <span class="mini">See the journey
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+            </span>
+          </span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== WHY ===================== -->
+<section class="band">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Why this matters</span>
+      <h2>The first day feels better when nothing is a surprise.</h2>
+      <p>Pre-onboarding is the stretch between saying yes and showing up. A little prep now means you walk in on Day 1 already feeling like you belong.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card reveal">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3 8-8"/><path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"/></svg></span>
+        <h3>Arrive prepared</h3>
+        <p>Get your paperwork, requirements, and first-day details sorted early — so Day 1 is about people, not forms.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.08s">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 13a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z"/><path d="M5 21a7 7 0 0 1 14 0"/></svg></span>
+        <h3>Feel at home faster</h3>
+        <p>Meet the team, learn how we work, and get to know our culture before you ever sit at your desk.</p>
+      </div>
+      <div class="why-card reveal" style="transition-delay:.16s">
+        <span class="ic"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>Start strong</h3>
+        <p>Hit the ground running. The sooner you feel settled, the sooner you can do your best work with us.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== JOURNEY ===================== -->
+<section class="band journey" id="journey">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Your journey</span>
+      <h2>From offer to first day, here's the route.</h2>
+      <p>Four simple stops. You're already past the hardest one.</p>
+    </div>
+    <div class="scale">
+      <div class="stop done reveal">
+        <div class="node"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></div>
+        <div><h3>Offer accepted</h3><p>You said yes. Welcome aboard — this is where it begins.</p></div>
+      </div>
+      <div class="stop next reveal" style="transition-delay:.08s">
+        <div class="node">01</div>
+        <div><h3>Get set up</h3><p>Sign your contract and submit your requirements through your checklist.</p></div>
+      </div>
+      <div class="stop reveal" style="transition-delay:.16s">
+        <div class="node">02</div>
+        <div><h3>Get to know us</h3><p>Watch your welcome video, meet the team, and read up on how we work.</p></div>
+      </div>
+      <div class="stop reveal" style="transition-delay:.24s">
+        <div class="node">03</div>
+        <div><h3>Day one</h3><p>Show up confident. We'll be ready and waiting for you.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CHECKLIST ===================== -->
+<section class="band tight" id="checklist">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Your checklist</span>
+      <h2>Tick these off before Day 1.</h2>
+      <p>Tap any item to mark it done. Your progress is saved on this device.</p>
+    </div>
+
+    <div class="check-wrap">
+      <div class="check-list" id="checkList">
+        <!-- items injected by JS so progress wires up cleanly -->
+      </div>
+
+      <div class="progress-card reveal">
+        <div class="ring">
+          <svg width="152" height="152" viewBox="0 0 152 152">
+            <circle cx="76" cy="76" r="64" fill="none" stroke="#e4e9f2" stroke-width="13"/>
+            <circle id="ringFill" cx="76" cy="76" r="64" fill="none" stroke="#1668ff" stroke-width="13"
+              stroke-linecap="round" stroke-dasharray="402" stroke-dashoffset="402"
+              style="transition:stroke-dashoffset .6s ease"/>
+          </svg>
+          <div class="pct" id="ringPct">0%</div>
+        </div>
+        <h3 id="progTitle">Let's get started</h3>
+        <p id="progNote">Every item you finish is one less thing to worry about on Day 1.</p>
+        <button class="reset" onclick="resetChecklist()">Reset checklist</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DAY ONE ===================== -->
+<section class="band dayone" id="dayone">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="eyebrow">Your first day</span>
+      <h2>What to expect on Day 1.</h2>
+      <p>Here's everything you need to walk in calm and confident.</p>
+    </div>
+    <div class="info-grid">
+      <div class="info-card reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="10" r="3"/><path d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8Z"/></svg></span>
+        <h3>Where to go</h3>
+        <p>Head to the main reception and ask for People &amp; Culture. We'll meet you there.</p>
+        <span class="pill">Add your office address</span>
+      </div>
+      <div class="info-card reveal" style="transition-delay:.06s">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></span>
+        <h3>What time</h3>
+        <p>Please arrive by 8:30 AM for your welcome and orientation session.</p>
+        <span class="pill">Confirm your start time</span>
+      </div>
+      <div class="info-card reveal" style="transition-delay:.12s">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7l9-4 9 4-9 4-9-4Z"/><path d="M3 7v6l9 4 9-4V7"/></svg></span>
+        <h3>What to bring</h3>
+        <p>Bring a valid ID and any original documents listed in your checklist.</p>
+        <span class="pill">Government IDs &amp; requirements</span>
+      </div>
+      <div class="info-card reveal">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2v6a6 6 0 0 0 12 0V2"/><path d="M5 22h14M9 2h6"/></svg></span>
+        <h3>What to wear</h3>
+        <p>Smart casual is perfect for your first day, unless your manager has said otherwise.</p>
+        <span class="pill">Edit your dress code</span>
+      </div>
+      <div class="info-card reveal" style="transition-delay:.06s">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg></span>
+        <h3>Your schedule</h3>
+        <p>A warm welcome, orientation, a tour, and time to meet your team. We'll pace it gently.</p>
+        <span class="pill">Link your Day 1 agenda</span>
+      </div>
+      <div class="info-card reveal" style="transition-delay:.12s">
+        <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#1668ff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.5"/><path d="M2 21a7 7 0 0 1 14 0M17 11l2 2 4-4"/></svg></span>
+        <h3>Who to look for</h3>
+        <p>Your People &amp; Culture buddy will greet you and guide you through the day.</p>
+        <span class="pill">Add your buddy's name</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="band" id="faq">
+  <div class="wrap">
+    <div class="sec-head reveal" style="text-align:center;margin-left:auto;margin-right:auto">
+      <span class="eyebrow" style="justify-content:center">Good to know</span>
+      <h2>Questions, answered.</h2>
+    </div>
+    <div class="faq-list">
+      <details class="faq reveal"><summary>What is pre-onboarding?<span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">It's everything that happens between accepting your offer and your first day. The goal is simple: help you feel informed, welcome, and ready — so Day 1 is exciting instead of overwhelming.</div></details>
+      <details class="faq reveal"><summary>What do I need to prepare before Day 1?<span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">Just work through your checklist above. It covers your signed contract, government requirements, employee information, and a few things to read. Tick each item as you go.</div></details>
+      <details class="faq reveal"><summary>What should I wear on my first day?<span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">Smart casual works well for most first days. If your role or team has a specific dress code, your manager or People &amp; Culture contact will let you know in advance.</div></details>
+      <details class="faq reveal"><summary>I have a question that isn't here. Who do I ask?<span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">Reach out to People &amp; Culture any time using the contact details below. No question is too small — we're here to make this easy for you.</div></details>
+      <details class="faq reveal"><summary>What happens on my actual first day?<span class="plus" aria-hidden="true"></span></summary>
+        <div class="ans">You'll be welcomed by People &amp; Culture, go through orientation, get a tour, and meet your team. We keep the pace gentle so you can settle in comfortably.</div></details>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== HELP ===================== -->
+<section class="help" id="help">
+  <div class="wrap">
+    <div class="help-card reveal">
+      <div>
+        <span class="eyebrow">We've got you</span>
+        <h2 style="margin-top:14px">Stuck on something? Just reach out.</h2>
+        <p>Your People &amp; Culture team is one message away. Whether it's a form, a date, or first-day nerves — we're happy to help.</p>
+      </div>
+      <div class="help-contact">
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg></span>
+          <a href="mailto:people@yourcompany.com">people@yourcompany.com</a>
+        </div>
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L20 13l1 4v3a1 1 0 0 1-1 1A16 16 0 0 1 4 5a1 1 0 0 1 1-1Z"/></svg></span>
+          <a href="tel:+630000000000">+63 (0) 000 000 0000</a>
+        </div>
+        <div class="row">
+          <span class="ic"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a8 8 0 0 0-8 8c0 5.5 8 12 8 12s8-6.5 8-12a8 8 0 0 0-8-8Z"/><circle cx="12" cy="10" r="3"/></svg></span>
+          <span style="color:rgba(255,255,255,.85)">People &amp; Culture · Your office address</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer class="foot">
+  <div class="wrap foot-inner">
+    <span class="fbrand">
+      <span class="fmark" aria-hidden="true">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M3 11.5 12 4l9 7.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 10.5V20h14v-9.5" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </span>
+      <span data-company>Welcome Hub: Your Pre-Onboarding Portal</span>
+    </span>
+    <span>Welcome aboard — we're glad you're here.</span>
+  </div>
+</footer>
+
+<!-- ===================== VIDEO POPUP ===================== -->
+<div class="modal" id="videoModal" aria-hidden="true">
+  <div class="modal-backdrop" data-close></div>
+  <div class="modal-card" role="dialog" aria-modal="true" aria-label="Welcome video">
+    <div class="modal-bar">
+      <span class="modal-title">
+        <span class="dot"></span><span class="dot y"></span><span class="dot g"></span>
+        Your welcome message
+      </span>
+      <div class="modal-tools">
+        <button type="button" class="cc-btn" id="ccBtn" aria-haspopup="true" aria-expanded="false" title="Subtitles &amp; captions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="M8 11h2M8 14h3M14 11h2M14 14h3"/></svg>
+          CC
+        </button>
+        <button type="button" class="modal-close" data-close aria-label="Close video">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M6 6l12 12M18 6 6 18"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-video" id="playerWrap">
+      <!-- ▼▼ DEFAULT: YOUR CANVA VIDEO (loads when the popup opens) ▼▼ -->
+      <div class="v-canva" id="vCanvaWrap">
+        <iframe id="canvaFrame"
+          data-src="https://www.canva.com/design/DAHLrrxEcFw/tu71Fh6za_ZLAlEc6wG9zw/view?embed"
+          title="Welcome video" allow="fullscreen" allowfullscreen></iframe>
+      </div>
+      <!-- ▲▲ CANVA VIDEO ▲▲ -->
+
+      <!-- ▼▼ OPTIONAL: SELF-HOSTED VIDEO WITH REAL SUBTITLES ▼▼
+           To use this instead of Canva:
+             1. Set USE_SELF_HOSTED_VIDEO = true in the script below
+             2. Drop your video file in as welcome.mp4
+             3. Drop your captions file in as welcome-en.vtt
+           The CC button then turns subtitles on/off and changes their size. -->
+      <video class="v-native" id="vNative" controls playsinline preload="none" hidden>
+        <source src="welcome.mp4" type="video/mp4" />
+        <track id="capTrack" kind="subtitles" src="welcome-en.vtt" srclang="en" label="English" default />
+        Your browser doesn't support embedded video.
+      </video>
+      <!-- ▲▲ SELF-HOSTED VIDEO ▲▲ -->
+    </div>
+
+    <!-- subtitle settings menu -->
+    <div class="cc-menu" id="ccMenu" hidden>
+      <div class="cc-head">Subtitles &amp; captions</div>
+      <label class="cc-row" id="capToggleRow" hidden>
+        <span>Show subtitles</span>
+        <input type="checkbox" id="capToggle" checked />
+      </label>
+      <div class="cc-row col" id="capSizeRow" hidden>
+        <span>Caption size</span>
+        <div class="cc-sizes" id="capSizes">
+          <button type="button" data-size="sm">Small</button>
+          <button type="button" data-size="md" class="on">Medium</button>
+          <button type="button" data-size="lg">Large</button>
+        </div>
+      </div>
+      <p class="cc-note" id="capNote">This welcome video is embedded from Canva, so subtitles are switched on or off inside the video's own player controls. To manage captions from here, switch to a self-hosted video — the steps are in the code comments above.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ============================================================
+   CONFIG — edit these
+   ============================================================ */
+const COMPANY_NAME = "Welcome Hub: Your Pre-Onboarding Portal";  // shows in the footer + title
+const USE_SELF_HOSTED_VIDEO = false;  // true = use welcome.mp4 + welcome-en.vtt with on-page subtitle controls
+
+/* checklist items — add/remove/reword freely */
+const TASKS = [
+  { t:"Sign and return your offer & contract", d:"Review, e-sign, and send it back to People & Culture." },
+  { t:"Submit your government requirements", d:"TIN, SSS, PhilHealth, and Pag-IBIG numbers or documents." },
+  { t:"Complete your employee information form", d:"Personal details, emergency contact, and bank/payroll info." },
+  { t:"Read the employee handbook & policies", d:"Get familiar with how we work and what to expect." },
+  { t:"Watch your welcome video", d:"A short hello from the team — find it at the top of this page." },
+  { t:"Confirm your Day 1 details", d:"Reply to confirm your start date, time, and where to go." },
+];
+
+/* ============================================================
+   Apply company name
+   ============================================================ */
+document.querySelectorAll('[data-company]').forEach(el => el.textContent = COMPANY_NAME);
+document.title = COMPANY_NAME;
+
+/* ============================================================
+   Nav (mobile)
+   ============================================================ */
+function toggleNav(btn){
+  const links = document.getElementById('navLinks');
+  const open = links.classList.toggle('open');
+  btn.setAttribute('aria-expanded', open);
+}
+function closeNav(){
+  const links = document.getElementById('navLinks');
+  links.classList.remove('open');
+  document.querySelector('.nav-toggle').setAttribute('aria-expanded','false');
+}
+
+/* ============================================================
+   Video popup + subtitle controls
+   ============================================================ */
+const modal      = document.getElementById('videoModal');
+const canvaFrame = document.getElementById('canvaFrame');
+const vCanvaWrap = document.getElementById('vCanvaWrap');
+const vNative    = document.getElementById('vNative');
+const ccBtn      = document.getElementById('ccBtn');
+const ccMenu     = document.getElementById('ccMenu');
+const playerWrap = document.getElementById('playerWrap');
+let lastFocus = null;
+
+/* pick which player to show */
+if(USE_SELF_HOSTED_VIDEO){
+  if(vCanvaWrap) vCanvaWrap.hidden = true;
+  if(vNative)    vNative.hidden = false;
+  document.getElementById('capToggleRow').hidden = false;
+  document.getElementById('capSizeRow').hidden = false;
+  document.getElementById('capNote').hidden = true;
+  playerWrap.classList.add('cap-md');
+}
+
+function openVideo(){
+  if(!modal) return;
+  lastFocus = document.activeElement;
+  if(!USE_SELF_HOSTED_VIDEO && canvaFrame && !canvaFrame.src){
+    canvaFrame.src = canvaFrame.dataset.src;   // load Canva only when opened
+  }
+  modal.classList.add('open');
+  modal.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  const closeBtn = modal.querySelector('.modal-close');
+  if(closeBtn) closeBtn.focus();
+}
+function closeVideo(){
+  if(!modal) return;
+  modal.classList.remove('open');
+  modal.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(ccMenu){ ccMenu.hidden = true; ccBtn.setAttribute('aria-expanded','false'); }
+  if(!USE_SELF_HOSTED_VIDEO && canvaFrame){ canvaFrame.src = ''; }  // stop playback
+  if(vNative){ vNative.pause(); }
+  if(lastFocus) lastFocus.focus();
+}
+modal && modal.addEventListener('click', e => { if(e.target.hasAttribute('data-close')) closeVideo(); });
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && modal.classList.contains('open')) closeVideo(); });
+
+/* subtitle settings menu */
+if(ccBtn){
+  ccBtn.addEventListener('click', () => {
+    const open = ccMenu.hidden;
+    ccMenu.hidden = !open;
+    ccBtn.setAttribute('aria-expanded', open);
+  });
+}
+/* show subtitles toggle (self-hosted only) */
+const capToggle = document.getElementById('capToggle');
+function setCaptions(on){
+  if(!vNative) return;
+  for(const tr of vNative.textTracks){ tr.mode = on ? 'showing' : 'hidden'; }
+  ccBtn.classList.toggle('on', on);
+}
+if(capToggle){
+  setCaptions(capToggle.checked);
+  capToggle.addEventListener('change', () => setCaptions(capToggle.checked));
+}
+/* caption size buttons */
+const capSizes = document.getElementById('capSizes');
+if(capSizes){
+  capSizes.addEventListener('click', e => {
+    const b = e.target.closest('button'); if(!b) return;
+    capSizes.querySelectorAll('button').forEach(x => x.classList.remove('on'));
+    b.classList.add('on');
+    playerWrap.classList.remove('cap-sm','cap-md','cap-lg');
+    playerWrap.classList.add('cap-' + b.dataset.size);
+  });
+}
+
+/* ============================================================
+   Checklist + progress ring  (saves to this device if allowed)
+   ============================================================ */
+const STORE_KEY = 'preboarding_checklist_v1';
+let state = {};
+try { state = JSON.parse(localStorage.getItem(STORE_KEY)) || {}; } catch(e){ state = {}; }
+
+const listEl = document.getElementById('checkList');
+TASKS.forEach((task, i) => {
+  const item = document.createElement('div');
+  item.className = 'check-item' + (state[i] ? ' checked' : '');
+  item.setAttribute('role','button');
+  item.setAttribute('tabindex','0');
+  item.innerHTML =
+    '<span class="box"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg></span>' +
+    '<span class="txt"><h4>'+task.t+'</h4><p>'+task.d+'</p></span>';
+  const toggle = () => {
+    state[i] = !state[i];
+    item.classList.toggle('checked', state[i]);
+    save(); updateProgress();
+  };
+  item.addEventListener('click', toggle);
+  item.addEventListener('keydown', e => { if(e.key===' '||e.key==='Enter'){ e.preventDefault(); toggle(); }});
+  listEl.appendChild(item);
+});
+
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(state)); }catch(e){} }
+
+const RING_LEN = 402; // 2πr, r=64
+function updateProgress(){
+  const total = TASKS.length;
+  const done = TASKS.reduce((n,_,i)=> n + (state[i]?1:0), 0);
+  const pct = Math.round((done/total)*100);
+  document.getElementById('ringPct').textContent = pct + '%';
+  document.getElementById('ringFill').style.strokeDashoffset = RING_LEN * (1 - done/total);
+  const title = document.getElementById('progTitle');
+  const note  = document.getElementById('progNote');
+  if(pct===0){ title.textContent="Let's get started"; note.textContent="Every item you finish is one less thing to worry about on Day 1."; }
+  else if(pct<100){ title.textContent=done+" of "+total+" done"; note.textContent="Nice progress — keep going, you're almost set."; }
+  else { title.textContent="You're all set! 🎉"; note.textContent="Everything's done. We can't wait to welcome you on Day 1."; }
+}
+function resetChecklist(){
+  state = {}; save();
+  document.querySelectorAll('.check-item').forEach(el=>el.classList.remove('checked'));
+  updateProgress();
+}
+updateProgress();
+
+/* ============================================================
+   Scroll reveal
+   ============================================================ */
+const io = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); }});
+}, { threshold:0.12 });
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+</body>
+</html>
